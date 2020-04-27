@@ -45,7 +45,10 @@ export default class QuizList extends Component {
         return (
             <div className={classes.QuizList}>
                 <div>
-                    <h1>Список тестов</h1>
+                    <h1>Игра "Викторина"</h1>
+                    <h4>Версия продукта 0.0.1</h4>
+                    <hr />
+                    <h2>Список тестов</h2>
                     {this.state.loading ? <Loader /> : <ul>{this.renderQuizes()}</ul>}
                 </div>
             </div>
