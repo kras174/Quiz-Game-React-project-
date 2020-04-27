@@ -1,0 +1,70 @@
+@keyframes innerLoader {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.innerLoader div {
+    box-sizing: border-box !important;
+}
+.innerLoader > div {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 25px;
+    left: 25px;
+    border-radius: 50%;
+    border: 8px solid #000;
+    border-color: #fff transparent #fff transparent;
+    animation: innerLoader 1s linear infinite;
+}
+.innerLoader > div:nth-child(2) {
+    border-color: transparent;
+}
+.innerLoader > div:nth-child(2) div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: rotate(45deg);
+}
+.innerLoader > div:nth-child(2) div:before,
+.innerLoader > div:nth-child(2) div:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    top: -8px;
+    left: 13px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 42px 0 0 #fff;
+}
+.innerLoader > div:nth-child(2) div:after {
+    left: -8px;
+    top: 13px;
+    box-shadow: 42px 0 0 0 #fff;
+}
+.Loader {
+    width: 99px;
+    height: 99px;
+    display: inline-block;
+    overflow: hidden;
+    background: none;
+}
+.innerLoader {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(0.99);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+}
+.innerLoader div {
+    box-sizing: content-box;
+}
+.center {
+    text-align: center;
+}
