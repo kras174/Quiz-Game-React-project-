@@ -28,7 +28,7 @@ class QuizList extends Component {
                     <h4>Версия продукта 1.0.1</h4>
                     <hr />
                     <h2>Список тестов</h2>
-                    {this.props.loading && this.props.quizes.length !== 0 ? <Loader /> : <ul>{this.renderQuizes()}</ul>}
+                    {this.props.loading ? <Loader /> : this.props.quizes.length !== 0 ? <ul>{this.renderQuizes()}</ul> : <h2>пуст</h2>}
                 </div>
             </div>
         );
