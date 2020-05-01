@@ -11,6 +11,7 @@ export function createQuestion(item) {
 export function createQuiz() {
     return async (dispatch, getState) => {
         await axios.post("/quizes.json", getState().createQuizReducer.quiz);
+        dispatch(reseteQuiz());
     };
 }
 
