@@ -1,10 +1,24 @@
 import {} from "../actions/quizAction";
-import { FETCH_QUIZES_START, FETCH_QUIZES_SUCCESS } from "../actions/actionTypes";
+import {
+    FETCH_QUIZES_START,
+    FETCH_QUIZES_SUCCESS,
+    FETCH_QUIZ_SUCCESS,
+    QUIZ_SET_ANSWER_STATE,
+    FETCH_QUIZES_ERROR,
+    QUIZ_FINISH,
+    QUIZ_NEXT_QUESTION,
+    QUIZ_RETRY,
+} from "../actions/actionTypes";
 
 const initialState = {
     quizes: [],
     loading: false,
     error: null,
+    results: {},
+    isFinished: false,
+    activeQuestion: 0,
+    answerState: null,
+    quiz: null,
 };
 
 export default function quizReducer(state = initialState, action) {
@@ -14,19 +28,49 @@ export default function quizReducer(state = initialState, action) {
                 ...state,
                 loading: true,
             };
+        case FETCH_QUIZ_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                quiz: action.quiz,
+            };
         case FETCH_QUIZES_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 quizes: action.quizes,
             };
-        case FETCH_QUIZES_START:
+        case FETCH_QUIZES_ERROR:
             return {
                 ...state,
                 loading: false,
                 error: action.error,
             };
-
+        case QUIZ_SET_ANSWER_STATE:
+            return {
+                ...state,
+                answerState: action.answerState,
+                results: action.results,
+            };
+        case QUIZ_FINISH:
+            return {
+                ...state,
+                isFinished: true,
+            };
+        case QUIZ_NEXT_QUESTION:
+            return {
+                ...state,
+                answerState: null,
+                activeQuestion: action.number,
+            };
+        case QUIZ_RETRY:
+            return {
+                ...state,
+                activeQuestion: 0,
+                answerState: null,
+                isFinished: false,
+                results: {},
+            };
         default:
             return state;
     }
