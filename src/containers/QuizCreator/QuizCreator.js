@@ -6,7 +6,7 @@ import Input from "../../components/UI/Input/Input";
 import Auxiliary from "../../hoc/Auxiliary/Auxiliary";
 import Select from "../../components/UI/Select/Select";
 import { connect } from "react-redux";
-import { createQuestion, createQuiz } from "../../store/actions/createQuizAction";
+import { createQuestion, createQuiz, saveQuizName } from "../../store/actions/createQuizAction";
 
 function createOptionControl(number) {
     return createControl(
@@ -40,6 +40,7 @@ class QuizCreator extends Component {
         isFormValid: false,
         formControls: createFormControls(),
         rightAnswerId: 1,
+        quizName: "",
     };
 
     submitFormHandler = (event) => {
@@ -74,11 +75,12 @@ class QuizCreator extends Component {
 
     createQuizHandler = (event) => {
         event.preventDefault();
-
+        this.props.saveQuizName(this.state.quizName);
         this.setState({
             isFormValid: false,
             formControls: createFormControls(),
             rightAnswerId: 1,
+            quizName: "",
         });
         this.props.createQuiz();
     };
@@ -96,6 +98,12 @@ class QuizCreator extends Component {
         this.setState({
             formControls,
             isFormValid: validateForm(formControls),
+        });
+    };
+
+    inputNameChengeHandler = (value) => {
+        this.setState({
+            quizName: value,
         });
     };
 
@@ -133,6 +141,14 @@ class QuizCreator extends Component {
                     <h1>Создание теста</h1>
 
                     <form onSubmit={this.submitFormHandler}>
+                        <Input
+                            label="Введите название теста"
+                            value={this.state.quizName}
+                            errorMessage="Название теста не может быть пустым"
+                            onChange={(event) => this.inputNameChengeHandler(event.target.value)}
+                        />
+                        <hr />
+                        <hr />
                         {this.renderInputs()}
 
                         <Select
@@ -168,6 +184,7 @@ function mapStateToProps(state) {
 function mapDispathToProps(dispatch) {
     return {
         createQuestion: (item) => dispatch(createQuestion(item)),
+        saveQuizName: (name) => dispatch(saveQuizName(name)),
         createQuiz: () => dispatch(createQuiz()),
     };
 }

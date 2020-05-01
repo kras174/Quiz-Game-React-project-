@@ -7,7 +7,7 @@ import { fetchQuizes } from "../../store/actions/quizAction";
 
 class QuizList extends Component {
     renderQuizes() {
-        return this.props.quizes.map((quiz, index) => {
+        return this.props.quizes.map((quiz) => {
             return (
                 <li key={quiz.id}>
                     <NavLink to={"/quiz/" + quiz.id}>{quiz.name}</NavLink>
@@ -25,7 +25,7 @@ class QuizList extends Component {
             <div className={classes.QuizList}>
                 <div>
                     <h1>Игра "Викторина"</h1>
-                    <h4>Версия продукта 0.1.1</h4>
+                    <h4>Версия продукта 1.0.1</h4>
                     <hr />
                     <h2>Список тестов</h2>
                     {this.props.loading && this.props.quizes.length !== 0 ? <Loader /> : <ul>{this.renderQuizes()}</ul>}
